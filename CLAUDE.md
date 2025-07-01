@@ -172,3 +172,30 @@ git push origin your-branch
 ```
 
 Note: Code quality commands will be available after Next.js application setup.
+
+### PR Sync Workflow (PR同期手順)
+After PR is merged to main, follow this procedure to sync local repository:
+
+PRがmainにマージされた後、ローカルリポジトリを同期するためにこの手順に従ってください：
+
+```bash
+# 1. Check current status
+git status
+git branch
+
+# 2. Switch to main branch
+git switch main
+
+# 3. Pull latest changes from main
+git pull origin main
+
+# 4. Delete work branch (optional)
+# Local branch deletion
+git branch -d <branch-name>
+
+# Remote branch deletion
+git push origin --delete <branch-name>
+```
+
+This procedure ensures your local repository is synchronized with the merged PR content.
+この手順により、ローカルリポジトリがマージされたPRの内容と同期されます。
