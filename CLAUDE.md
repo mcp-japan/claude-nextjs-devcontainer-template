@@ -153,9 +153,9 @@ npm install
   - `docs: update API documentation`
 
 ### Pre-commit Workflow
-Always follow this procedure before committing:
+**IMPORTANT**: Always follow this procedure before committing. Always run `git pull origin main` first to get the latest changes from the main branch:
 ```bash
-# 1. Pull latest changes from remote
+# 1. MANDATORY: Pull latest changes from remote first
 git pull origin main
 
 # 2. Run code quality checks (after setting up Next.js)
