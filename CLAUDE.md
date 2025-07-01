@@ -104,33 +104,23 @@ The project includes a comprehensive `.gitignore` file that excludes:
 
 ## Troubleshooting
 
-### Common Issues
+### Permission Errors with node_modules (node_modulesの権限エラー)
 
-**Container not starting:**
+**Problem**: `EACCES: permission denied, mkdir '/workspace/node_modules'`
+
+**Solution**:
 ```bash
-# Check logs
-docker compose logs nextjs-dev
-
-# Rebuild container
-docker compose build --no-cache
-```
-
-**Port already in use:**
-```bash
-# Check what's using port 3000
-lsof -i :3000
-
-# Kill process if needed
-kill -9 <PID>
-```
-
-**Node modules issues:**
-```bash
-# Clear node_modules cache volume
+# コンテナを停止してボリュームを削除
 docker compose down
-docker volume rm node_modules_cache
+docker volume rm claude-nextjs-devcontainer-template-fin_node_modules_cache
+
+# コンテナを再起動
 docker compose up -d
+docker compose exec nextjs-dev zsh
+npm install
 ```
+
+**Note**: Dockerコマンドはホストマシンで実行してください。コンテナ内では実行できません。
 
 ## Git Workflow
 
@@ -141,15 +131,31 @@ docker compose up -d
 ### Commit Guidelines
 - Use conventional commits format: `type(scope): description`
 - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+- **Bilingual commit messages**: Use both English and Japanese with bullet points
+- Format structure:
+  ```
+  type: brief description
+  
+  - English bullet point 1
+  - English bullet point 2
+  - English bullet point 3
+  
+  - 日本語の箇条書き 1
+  - 日本語の箇条書き 2
+  - 日本語の箇条書き 3
+  
+  🤖 Generated with [Claude Code](https://claude.ai/code)
+  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
 - Examples:
   - `feat(auth): add user registration flow`
   - `fix(ui): resolve mobile layout issues`
   - `docs: update API documentation`
 
 ### Pre-commit Workflow
-Always follow this procedure before committing:
+**IMPORTANT**: Always follow this procedure before committing. Always run `git pull origin main` first to get the latest changes from the main branch:
 ```bash
-# 1. Pull latest changes from remote
+# 1. MANDATORY: Pull latest changes from remote first
 git pull origin main
 
 # 2. Run code quality checks (after setting up Next.js)
