@@ -4,15 +4,19 @@ A Next.js starter template with a fully configured DevContainer environment opti
 
 ## Tech Stack (技術スタック)
 
-Tech stack intended for building with this template:
+**As of July 2, 2025 (2025年7月2日現在)**
 
-このテンプレートを使用して構築することを想定している技術スタック：
+Tech stack intended for building with this template. We prioritize using the latest stable versions of all technologies:
+
+このテンプレートを使用して構築することを想定している技術スタック。全ての技術において最新の安定版の使用を優先します：
 
 - **Frontend**
-  - Next.js 14+ (React framework with App Router)
-  - TypeScript for type safety
-  - Tailwind CSS for styling
-  - shadcn/ui component library
+  - Next.js 15.0.0+ (React framework with App Router)
+  - React 18.3.0+ (Latest stable version)
+  - TypeScript 5.4.0+ for type safety
+  - Tailwind CSS 3.4.0+ for styling
+  - shadcn/ui component library (Latest stable)
+  - Radix UI primitives for accessible components
 - **Backend**
   - Next.js API Routes
   - Supabase integration ready
@@ -29,16 +33,24 @@ Tech stack intended for building with this template:
 git clone <your-repo-url> my-nextjs-app
 cd my-nextjs-app
 
+# Clean up any existing volumes (prevents permission issues)
+docker compose down
+docker volume prune -f
+
 # Start development environment
 docker compose up -d
 
 # Enter the container
 docker compose exec nextjs-dev zsh
 
-# After setting up your Next.js application:
-# npm install
-# npm run dev
+# Install dependencies (should work without permission errors now)
+npm install
+
+# Start development server
+npm run dev
 ```
+
+**Important**: Always run `docker compose down` and `docker volume prune -f` before starting fresh to prevent permission issues.
 
 ### Using Claude Code
 
