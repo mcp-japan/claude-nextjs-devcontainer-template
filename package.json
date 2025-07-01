@@ -1,0 +1,16 @@
+{
+  "name": "claude-nextjs-devcontainer-template",
+  "version": "1.0.0",
+  "description": "Next.js template with DevContainer setup optimized for Claude Code integration",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": ["nextjs", "template", "devcontainer", "claude-code", "docker", "supabase"],
+  "license": "MIT"
+}

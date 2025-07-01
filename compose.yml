@@ -1,0 +1,38 @@
+services:
+  nextjs-dev:
+    build:
+      context: .devcontainer
+      dockerfile: Dockerfile
+      args:
+        TZ: Asia/Tokyo
+    container_name: nextjs-dev
+    volumes:
+      # ワークスペースのマウント
+      - .:/workspace
+      # 永続化ボリューム（Dev Containerの設定から）
+      - claude-code-bashhistory:/commandhistory
+      - claude-code-config:/home/node/.claude
+      # GitHub CLI設定の永続化（コンテナ独立）
+      - gh-config:/home/node/.config/gh
+      # SSH設定のマウント（ホストマシンから）
+      - ~/.ssh:/home/node/.ssh:ro
+      # node_modulesキャッシュ
+      - node_modules_cache:/workspace/node_modules
+    working_dir: /workspace
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=4096
+      - CLAUDE_CONFIG_DIR=/home/node/.claude
+      - POWERLEVEL9K_DISABLE_GITSTATUS=true
+      - TZ=Asia/Tokyo
+    # 開発用のポート（必要に応じて追加）
+    ports:
+      - "3000:3000"
+    # ネットワークケイパビリティ（Dev Containerの設定から）
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    # コンテナを起動し続ける
+    command: tail -f /dev/null
+    user: node
+    stdin_open: true
+    tty: true
