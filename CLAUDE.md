@@ -108,7 +108,16 @@ The project includes a comprehensive `.gitignore` file that excludes:
 
 **Problem**: `EACCES: permission denied, mkdir '/workspace/node_modules'`
 
-**Solution**:
+**Solutions**:
+
+**Option 1: Quick Fix (クイック修正)**
+```bash
+# Fix ownership immediately (即座に所有権を修正)
+docker compose exec --user root nextjs-dev chown -R node:node /workspace/node_modules
+docker compose exec nextjs-dev npm install
+```
+
+**Option 2: Clean Reset (クリーンリセット)**
 ```bash
 # コンテナを停止してボリュームを削除
 docker compose down
@@ -119,6 +128,11 @@ docker compose up -d
 docker compose exec nextjs-dev zsh
 npm install
 ```
+
+**Prevention (予防策)**:
+The compose.yml includes `user: node` setting to prevent this issue. If problems persist, ensure Docker volumes are created with proper ownership.
+
+compose.ymlには`user: node`設定が含まれており、この問題を防ぎます。問題が続く場合は、Dockerボリュームが適切な所有権で作成されていることを確認してください。
 
 **Note**: Dockerコマンドはホストマシンで実行してください。コンテナ内では実行できません。
 
