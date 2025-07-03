@@ -43,6 +43,9 @@ docker compose up -d
 # Enter the container
 docker compose exec nextjs-dev zsh
 
+# If you encounter permission errors, fix ownership first
+# docker compose exec --user root nextjs-dev chown -R node:node /workspace
+
 # Install dependencies (should work without permission errors now)
 npm install
 
