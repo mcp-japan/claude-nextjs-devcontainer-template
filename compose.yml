@@ -16,8 +16,6 @@ services:
       - gh-config:/home/node/.config/gh
       # SSH設定のマウント（ホストマシンから）
       - ~/.ssh:/home/node/.ssh:ro
-      # node_modulesキャッシュ（nodeユーザー権限で作成）
-      - node_modules_cache:/workspace/node_modules
     working_dir: /workspace
     environment:
       - NODE_OPTIONS=--max-old-space-size=4096
